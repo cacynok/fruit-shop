@@ -2,86 +2,90 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Товар</title>
+<title>Fruit Shop</title>
 
 <style>
 body {
+    margin: 0;
     font-family: Arial;
     background: #e8f5e9;
-    margin: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/food.png');
+}
+
+header {
+    background: linear-gradient(90deg, #81c784, #a5d6a7);
+    color: white;
+    text-align: center;
+    padding: 20px;
 }
 
 .container {
     padding: 20px;
-    text-align: center;
 }
 
-img {
-    width: 300px;
-    height: 300px;
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
     object-fit: contain;
 }
 
-button {
-    padding: 10px 20px;
-    background: green;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1 id="title"></h1>
-    <img id="image">
-    <p id="desc"></p>
-    <p id="info"></p>
+<header>
+    <h1>🍎 Магазин фруктов</h1>
+</header>
 
-    <button onclick="goBack()">⬅ Назад</button>
+<div class="container">
+    <div class="products">
+
+        <div class="card" onclick="openProduct('apple')">
+            <h3>Яблоки</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg">
+        </div>
+
+        <div class="card" onclick="openProduct('banana')">
+            <h3>Бананы</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg">
+        </div>
+
+        <div class="card" onclick="openProduct('orange')">
+            <h3>Апельсины</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg">
+        </div>
+
+        <div class="card" onclick="openProduct('grape')">
+            <h3>Виноград</h3>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg">
+        </div>
+
+    </div>
 </div>
 
 <script>
-const data = {
-    apple: {
-        title: "Яблоки",
-        img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg",
-        desc: "Свежие и сочные яблоки.",
-        info: "Калории: 52 ккал | Страна: Польша"
-    },
-    banana: {
-        title: "Бананы",
-        img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
-        desc: "Сладкие бананы.",
-        info: "Калории: 89 ккал | Страна: Эквадор"
-    },
-    orange: {
-        title: "Апельсины",
-        img: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg",
-        desc: "Витамин C!",
-        info: "Калории: 47 ккал | Страна: Испания"
-    },
-    grape: {
-        title: "Виноград",
-        img: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg",
-        desc: "Сладкий виноград.",
-        info: "Калории: 69 ккал | Страна: Италия"
-    }
-};
-
-const params = new URLSearchParams(window.location.search);
-const product = params.get("name");
-
-document.getElementById("title").innerText = data[product].title;
-document.getElementById("image").src = data[product].img;
-document.getElementById("desc").innerText = data[product].desc;
-document.getElementById("info").innerText = data[product].info;
-
-function goBack() {
-    window.location.href = "index.html";
+function openProduct(product) {
+    window.location.href = "product.html?name=" + product;
 }
 </script>
 
