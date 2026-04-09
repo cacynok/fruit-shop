@@ -36,6 +36,16 @@ button {
 <p id="desc"></p>
 <p id="info"></p>
 
+<p id="info"></p>
+
+<p>Выберите вес:</p>
+
+<select id="weight">
+    <option value="0.5">0.5 кг</option>
+    <option value="1">1 кг</option>
+    <option value="2">2 кг</option>
+</select>
+
 <button onclick="addToCart()">🛒 В корзину</button>
 <br><br>
 <button onclick="goBack()">⬅ Назад</button>
@@ -67,9 +77,20 @@ document.getElementById("desc").innerText = item.desc;
 document.getElementById("info").innerText = item.info;
 
 function addToCart() {
-    cart.push(item.title);
+    let weight = document.getElementById("weight").value;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push({
+        name: item.title,
+        price: 2, // можно потом сделать разную цену
+        weight: weight
+    });
+
     localStorage.setItem("cart", JSON.stringify(cart));
+
     alert("Добавлено в корзину!");
+}
 }
 
 function goBack() {
