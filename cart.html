@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Корзина</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #e8f5e9;
+    padding: 20px;
+}
+
+.item {
+    background: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+button {
+    padding: 8px;
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🛒 Корзина</h1>
+
+<div id="cart"></div>
+
+<h2>Итого: <span id="total">0</span> €</h2>
+
+<button onclick="clearCart()">Очистить</button>
+<button onclick="goBack()">Назад</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let total = 0;
+
+function render() {
+    let div = document.getElementById("cart");
+    div.innerHTML = "";
+
+    cart.forEach(item => {
+        total += item.price * item.weight;
+
+        div.innerHTML += `
+            <div class="item">
+                ${item.name} - ${item.weight} кг - ${item.price}€/кг
+            </div>
+        `;
+    });
+
+    document.getElementById("total").innerText = total.toFixed(2);
+}
+
+function clearCart() {
+    localStorage.removeItem("cart");
+    location.reload();
+}
+
+function goBack() {
+    window.location.href = "index.html";
+}
+
+render();
+</script>
+
+</body>
+</html>
