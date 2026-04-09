@@ -9,28 +9,39 @@ body {
     margin: 0;
     font-family: Arial;
     background: #e8f5e9;
-    background-image: url('https://www.transparenttextures.com/patterns/food.png');
 }
 
+/* КРАСИВЫЙ HEADER */
 header {
-    background: linear-gradient(90deg, #81c784, #a5d6a7);
+    background: linear-gradient(90deg, #66bb6a, #a5d6a7);
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
-.container {
-    padding: 20px;
+/* ПОИСК */
+.search {
+    width: 90%;
+    margin: 20px auto;
+    display: block;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
 }
 
+/* СЕТКА */
 .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    padding: 20px;
 }
 
 .card {
-    background: #ffffff;
+    background: white;
     border-radius: 15px;
     padding: 15px;
     text-align: center;
@@ -48,44 +59,73 @@ header {
     object-fit: contain;
 }
 
+/* КОРЗИНА */
+.cart-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: green;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-    <h1>🍎 Магазин фруктов</h1>
-</header>
+<header>🍎 FRESH FRUIT STORE 🍏</header>
 
-<div class="container">
-    <div class="products">
+<div class="cart-btn" onclick="openCart()">🛒</div>
 
-        <div class="card" onclick="openProduct('apple')">
-            <h3>Яблоки</h3>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg">
-        </div>
+<input class="search" placeholder="Поиск..." oninput="search()">
 
-        <div class="card" onclick="openProduct('banana')">
-            <h3>Бананы</h3>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg">
-        </div>
+<div class="products" id="products">
 
-        <div class="card" onclick="openProduct('orange')">
-            <h3>Апельсины</h3>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg">
-        </div>
+<!-- 10 ФРУКТОВ -->
 
-        <div class="card" onclick="openProduct('grape')">
-            <h3>Виноград</h3>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg">
-        </div>
+<div class="card" onclick="openProduct('apple')"><h3>Яблоки</h3><img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg"></div>
 
-    </div>
+<div class="card" onclick="openProduct('banana')"><h3>Бананы</h3><img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg"></div>
+
+<div class="card" onclick="openProduct('orange')"><h3>Апельсины</h3><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg"></div>
+
+<div class="card" onclick="openProduct('grape')"><h3>Виноград</h3><img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg"></div>
+
+<div class="card" onclick="openProduct('strawberry')"><h3>Клубника</h3><img src="https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg"></div>
+
+<div class="card" onclick="openProduct('pineapple')"><h3>Ананас</h3><img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg"></div>
+
+<div class="card" onclick="openProduct('mango')"><h3>Манго</h3><img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"></div>
+
+<div class="card" onclick="openProduct('kiwi')"><h3>Киви</h3><img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Kiwi_aka.jpg"></div>
+
+<div class="card" onclick="openProduct('pear')"><h3>Груша</h3><img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Pear.jpg"></div>
+
+<div class="card" onclick="openProduct('watermelon')"><h3>Арбуз</h3><img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Watermelon_cross_BNC.jpg"></div>
+
 </div>
 
 <script>
-function openProduct(product) {
-    window.location.href = "product.html?name=" + product;
+function openProduct(name) {
+    window.location.href = "product.html?name=" + name;
+}
+
+/* ПОИСК */
+function search() {
+    let input = document.querySelector(".search").value.toLowerCase();
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        card.style.display = text.includes(input) ? "block" : "none";
+    });
+}
+
+/* КОРЗИНА */
+function openCart() {
+    alert("Корзина сохраняется при покупке товара 😉");
 }
 </script>
 

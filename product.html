@@ -8,12 +8,8 @@
 body {
     font-family: Arial;
     background: #e8f5e9;
-    margin: 0;
-}
-
-.container {
-    padding: 20px;
     text-align: center;
+    padding: 20px;
 }
 
 img {
@@ -35,50 +31,46 @@ button {
 
 <body>
 
-<div class="container">
-    <h1 id="title"></h1>
-    <img id="image">
-    <p id="desc"></p>
-    <p id="info"></p>
+<h1 id="title"></h1>
+<img id="image">
+<p id="desc"></p>
+<p id="info"></p>
 
-    <button onclick="goBack()">⬅ Назад</button>
-</div>
+<button onclick="addToCart()">🛒 В корзину</button>
+<br><br>
+<button onclick="goBack()">⬅ Назад</button>
 
 <script>
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 const data = {
-    apple: {
-        title: "Яблоки",
-        img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg",
-        desc: "Свежие и сочные яблоки.",
-        info: "Калории: 52 ккал | Страна: Польша"
-    },
-    banana: {
-        title: "Бананы",
-        img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
-        desc: "Сладкие бананы.",
-        info: "Калории: 89 ккал | Страна: Эквадор"
-    },
-    orange: {
-        title: "Апельсины",
-        img: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg",
-        desc: "Витамин C!",
-        info: "Калории: 47 ккал | Страна: Испания"
-    },
-    grape: {
-        title: "Виноград",
-        img: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg",
-        desc: "Сладкий виноград.",
-        info: "Калории: 69 ккал | Страна: Италия"
-    }
+apple:{title:"Яблоки",img:"https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg",desc:"Свежие яблоки",info:"52 ккал"},
+banana:{title:"Бананы",img:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",desc:"Сладкие бананы",info:"89 ккал"},
+orange:{title:"Апельсины",img:"https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg",desc:"Много витамина C",info:"47 ккал"},
+grape:{title:"Виноград",img:"https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg",desc:"Сладкий виноград",info:"69 ккал"},
+strawberry:{title:"Клубника",img:"https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg",desc:"Сочная клубника",info:"33 ккал"},
+pineapple:{title:"Ананас",img:"https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg",desc:"Экзотический фрукт",info:"50 ккал"},
+mango:{title:"Манго",img:"https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg",desc:"Сладкий манго",info:"60 ккал"},
+kiwi:{title:"Киви",img:"https://upload.wikimedia.org/wikipedia/commons/d/d3/Kiwi_aka.jpg",desc:"Кисло-сладкий",info:"61 ккал"},
+pear:{title:"Груша",img:"https://upload.wikimedia.org/wikipedia/commons/f/f4/Pear.jpg",desc:"Сочная груша",info:"57 ккал"},
+watermelon:{title:"Арбуз",img:"https://upload.wikimedia.org/wikipedia/commons/e/eb/Watermelon_cross_BNC.jpg",desc:"Освежающий",info:"30 ккал"}
 };
 
 const params = new URLSearchParams(window.location.search);
 const product = params.get("name");
 
-document.getElementById("title").innerText = data[product].title;
-document.getElementById("image").src = data[product].img;
-document.getElementById("desc").innerText = data[product].desc;
-document.getElementById("info").innerText = data[product].info;
+const item = data[product];
+
+document.getElementById("title").innerText = item.title;
+document.getElementById("image").src = item.img;
+document.getElementById("desc").innerText = item.desc;
+document.getElementById("info").innerText = item.info;
+
+function addToCart() {
+    cart.push(item.title);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Добавлено в корзину!");
+}
 
 function goBack() {
     window.location.href = "index.html";
