@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Товар</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #e8f5e9;
+    margin: 0;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+}
+
+button {
+    padding: 10px 20px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="title"></h1>
+    <img id="image">
+    <p id="desc"></p>
+    <p id="info"></p>
+
+    <button onclick="goBack()">⬅ Назад</button>
+</div>
+
+<script>
+const data = {
+    apple: {
+        title: "Яблоки",
+        img: "https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg",
+        desc: "Свежие и сочные яблоки.",
+        info: "Калории: 52 ккал | Страна: Польша"
+    },
+    banana: {
+        title: "Бананы",
+        img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg",
+        desc: "Сладкие бананы.",
+        info: "Калории: 89 ккал | Страна: Эквадор"
+    },
+    orange: {
+        title: "Апельсины",
+        img: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg",
+        desc: "Витамин C!",
+        info: "Калории: 47 ккал | Страна: Испания"
+    },
+    grape: {
+        title: "Виноград",
+        img: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Table_grapes.jpg",
+        desc: "Сладкий виноград.",
+        info: "Калории: 69 ккал | Страна: Италия"
+    }
+};
+
+const params = new URLSearchParams(window.location.search);
+const product = params.get("name");
+
+document.getElementById("title").innerText = data[product].title;
+document.getElementById("image").src = data[product].img;
+document.getElementById("desc").innerText = data[product].desc;
+document.getElementById("info").innerText = data[product].info;
+
+function goBack() {
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
